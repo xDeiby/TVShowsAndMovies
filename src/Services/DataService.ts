@@ -4,7 +4,7 @@ const api_url : string = "https://api.themoviedb.org/3";
 const getQuery = async (query : string) => {
     const list = await fetch(`${api_url}${query}&api_key=${api_key}&lenguage=es`);
     const movies = await list.json();
-
+    
     return movies;
 }
 
@@ -14,4 +14,9 @@ export const getTopMovies = async (pag : number) => {
     return getQuery(type_query);
 }
 
+export const getTopSeries = async (pag : number) => {
+    const type_query : string = `/discover/tv?page=${pag}&sort_by=popularity.desc`;
+
+    return getQuery(type_query);
+}
 

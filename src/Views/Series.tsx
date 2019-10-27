@@ -1,33 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import { getTopMovies } from '../Services/DataService'
+import { getTopSeries } from '../Services/DataService';
 import Cards from '../Components/Cards';
 import { Grid, Pagination } from 'semantic-ui-react';
 //import Search from '../Components/Search';
 
-const Movies = () =>{
+const Series = () =>{
 
-    const [movies, setMovies] = useState([]);
+    const [series, setSeries] = useState([]);
     const [pagesT, setPagesT] = useState(0);
 
     useEffect( () => {
-        newMovies(1);
+        newSeries(1);
     },[]);
 
+    const newSeries = (num_pag : number) => {
 
-    const newMovies = (num_pag : number) => {
-
-        getTopMovies(num_pag)
+        getTopSeries(num_pag)
         .then( (data) => {
-            setMovies(data.results);
-           if (!pagesT) setPagesT(data.total_pages); 
+            setSeries(data.results);
+            if (!pagesT) setPagesT(data.total_pages); 
         })
         .catch( (error) =>  console.log(error) );
 
     }
 
+
     return(
         <Grid>
-            <Cards movies = {movies} />
+            <Cards movies = {series} />
             <Grid.Row centered>
                 <Pagination
                     defaultActivePage= {1}
@@ -37,7 +37,7 @@ const Movies = () =>{
                     secondary
                     totalPages={pagesT}
                     boundaryRange = {5}
-                    onPageChange = {(e : any, pagInfo : any) => newMovies(pagInfo.activePage)} 
+                    onPageChange = {(e : any, pagInfo : any) => newSeries(pagInfo.activePage)} 
                 />
             </Grid.Row>
         </Grid>
@@ -45,4 +45,4 @@ const Movies = () =>{
     );
 }
 
-export default Movies;
+export default Series;
