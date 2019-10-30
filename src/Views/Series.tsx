@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { Grid, Pagination } from 'semantic-ui-react';
+
 import { getTopSeries } from '../Services/DataService';
 import Cards from '../Components/Cards';
-import { Grid, Pagination } from 'semantic-ui-react';
+import Menu from '../Components/Menu';
+import Genres from '../Components/Genres';
 //import Search from '../Components/Search';
 
 const Series = () =>{
@@ -26,8 +29,18 @@ const Series = () =>{
 
 
     return(
+        <React.Fragment>
+        <Menu page= "Series"/>
+        <br/>
         <Grid>
-            <Cards movies = {series} />
+                <Grid.Row>
+                    <Grid.Column width={2}>
+                        <Genres genre="tv"/>
+                    </Grid.Column>
+                    <Grid.Column width={14}>
+                        <Cards movies = {series} />
+                    </Grid.Column>
+                </Grid.Row>
             <Grid.Row centered>
                 <Pagination
                     defaultActivePage= {1}
@@ -41,6 +54,7 @@ const Series = () =>{
                 />
             </Grid.Row>
         </Grid>
+    </React.Fragment>
 
     );
 }

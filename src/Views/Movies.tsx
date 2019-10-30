@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { Grid, Pagination } from 'semantic-ui-react';
+
 import { getTopMovies } from '../Services/DataService'
 import Cards from '../Components/Cards';
-import { Grid, Pagination } from 'semantic-ui-react';
+import Menu from '../Components/Menu';
+import Genres from '../Components/Genres';
+
 //import Search from '../Components/Search';
 
 const Movies = () =>{
@@ -26,21 +30,32 @@ const Movies = () =>{
     }
 
     return(
-        <Grid>
-            <Cards movies = {movies} />
-            <Grid.Row centered>
-                <Pagination
-                    defaultActivePage= {1}
-                    firstItem={null}
-                    lastItem={null}
-                    pointing
-                    secondary
-                    totalPages={pagesT}
-                    boundaryRange = {5}
-                    onPageChange = {(e : any, pagInfo : any) => newMovies(pagInfo.activePage)} 
-                />
-            </Grid.Row>
-        </Grid>
+        <React.Fragment>
+            <Menu page = "Movies" />
+            <br/>
+            <Grid>
+                <Grid.Row>
+                    <Grid.Column width={2}>
+                        <Genres genre="movie"/>
+                    </Grid.Column>
+                    <Grid.Column width={14}>
+                        <Cards movies = {movies} />
+                    </Grid.Column>
+                </Grid.Row>
+                <Grid.Row centered>
+                    <Pagination
+                        defaultActivePage= {1}
+                        firstItem={null}
+                        lastItem={null}
+                        pointing
+                        secondary
+                        totalPages={pagesT}
+                        boundaryRange = {5}
+                        onPageChange = {(e : any, pagInfo : any) => newMovies(pagInfo.activePage)} 
+                    />
+                </Grid.Row>
+            </Grid>
+        </React.Fragment>
 
     );
 }
